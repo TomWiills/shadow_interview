@@ -1,5 +1,60 @@
 # hiring-test
 
+# Solution
+
+The test implemtation can be found in the /Solution directory. My notes can also be found in notes.txt.
+
+Instructions on how to build the solution can be found below using the Makefile.
+
+## Building
+
+The solution or tests can simply be run using the make commands below.
+I created a docker image that can be pulled from my public github repo without logging in or using a token if you wanted to use it.
+If not using the docker image, the packages in the prerequisites section are required.
+
+### docker pull
+
+```bash
+cd shadow_interview
+docker pull ghcr.io/tomwiills/shadow_interview/shadow_task_docker:0.0.1
+docker run -v $(pwd):/docker/ -it ghcr.io/tomwiills/shadow_interview/shadow_task_docker:0.0.1
+```
+
+### make commands
+
+#### solution:
+
+```bash
+cd Solution
+make
+```
+
+#### unit tests:
+
+You require to pull the gtest submodule but you should do this outside of the docker container:
+
+```bash
+git submodule update --init --recursive 
+```
+
+```bash
+cd Solution
+make test
+```
+
+### Prerequisites 
+
+build-essential 
+cmake 
+python3 
+python3-dev 
+python3-pip 
+g++ 
+git 
+libpython3-dev
+pkg-config
+python packages: matplotlib numpy
+
 ## General idea
 The goal is to solve the problem we're stating below in C++ (alternatively python could also be acceptable but not ideal).
 

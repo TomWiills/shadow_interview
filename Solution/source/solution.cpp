@@ -2,7 +2,6 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
-#include <filesystem>
 #include <matplotlibcpp.h>
 
 //function retrieve data from txt file
@@ -27,6 +26,10 @@ void solution::parse_data(std::string path)
             xvalues.push_back(x);
             yvalues.push_back(y);
         }
+        else
+        {
+            std::cout << "Line of data is not formatted correctly, skipping..." << std::endl;
+        }
     }
 };
 
@@ -38,6 +41,11 @@ void solution::apply_filter(int window_size)
     double sum = 0.0;
     int left = 0;
     int right = std::min(window_size -1, size -1);
+
+    if(window_size == 1){
+        return;
+    }
+
     for(int i = left; i <= right; ++i) 
     {
         sum += yvalues[i];
@@ -47,8 +55,8 @@ void solution::apply_filter(int window_size)
     {
         filtered_yvalues[i] = (sum / (right - left + 1));
 
-        // ensure the end stilll has a small window (-5) to average or it will be raw data
-        if(left < right - MIN_AVERAGE_WINDOW_WIDTH)
+        //ensure the last few data points are not raw and are still averaged using the minimum of window_size/2
+        if(left < right - window_size/2)
         {
             sum -= yvalues[left];
             left++;
@@ -59,7 +67,6 @@ void solution::apply_filter(int window_size)
             sum += yvalues[right +1];
             right++;
         }
-
     }
 };
 
@@ -100,15 +107,16 @@ void solution::jump_event(int event_index, int window_size)
     }
 }
 
-void solution::plot_data(std::string filename)
+void solution::plot_data(std::string filename) const
 {
-    std::filesystem::create_directories("./plots");
     matplotlibcpp::named_plot("Raw Data", xvalues, yvalues);
     matplotlibcpp::named_plot("Filtered Data", xvalues, filtered_yvalues);
     matplotlibcpp::legend();
-    matplotlibcpp::save("./plots/" + filename);
+    matplotlibcpp::save(plot_dir + filename);
+    std::cout << "Find plot file here: " + plot_dir + filename + ".png"<< std::endl;
 };
 
+#ifndef UNIT_TESTING
 int main()
 {
     int filter_window_size = 60;
@@ -120,3 +128,4 @@ int main()
     sl.check_deltas(jump_event_filter, filter_window_size);
     sl.plot_data("solution_comparison");
 }
+#endif

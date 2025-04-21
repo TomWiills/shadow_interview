@@ -19,3 +19,8 @@ Action plan
 - implement a function to get the new y values, from the smoothed curve, using the fixed x values
 - create a function to graph the end result.
 - implement a few unit tests (test known delta y values and the outcomes)
+
+Test/Final Notes:
+- currently my solution filters all of the data and then goes back and checks for deltas, I could implement the 
+check during the filter to save time and only pass through the data
+- when writing tests the private x and y values cannot be accessed, add getters/setters to enable access
