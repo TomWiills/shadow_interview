@@ -1,0 +1,21 @@
+First Impressions
+
+- Ensure you have a docker image for the scripts/packages you require
+- write a unit test
+- we want to filter the noisy data 
+- then we want to detect the change in y in a certain timeframe, 
+- if it is over a certain value we need to apply a filter to smooth it
+- the smoothing looks like it should occur in a 0.25 window so apply smoothing +/- 0.125
+- the gaussian with jumps test name implies a gaussian filter may need to be used
+- trying to detect a change in y will be too difficult with noisy data
+- time (x values of the data should not be changed)
+
+Action plan
+
+- find out what frequency the data is recorded at and calculate how many data points we can edit in a 0.125 window
+- decide which filter to pass the noisy data through
+- decide on a the delta of y that will trigger a smoothing event
+- decide on the smoothing function to use 
+- implement a function to get the new y values, from the smoothed curve, using the fixed x values
+- create a function to graph the end result.
+- implement a few unit tests (test known delta y values and the outcomes)
