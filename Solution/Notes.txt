@@ -13,11 +13,17 @@ First Impressions
 Action plan
 
 - find out what frequency the data is recorded at and calculate how many data points we can edit in a 0.125 window
+looks like the data is recorded every ~0.00075 so I can smooth +- ~166 data points
 - decide which filter to pass the noisy data through
+Going to use the moving window average for the initial filter 
 - decide on a the delta of y that will trigger a smoothing event
+decided on a delta of 1 after testing 
 - decide on the smoothing function to use 
+utlised average function again for the jumps 
 - implement a function to get the new y values, from the smoothed curve, using the fixed x values
+not required, data adjusted on the fly
 - create a function to graph the end result.
+used matplotlib-cpp wrapper to use the same python package the generator.py used
 - implement a few unit tests (test known delta y values and the outcomes)
 
 Test/Final Notes:

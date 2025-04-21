@@ -2,9 +2,11 @@
 
 # Solution
 
-The test implemtation can be found in the /Solution directory. My notes can also be found in notes.txt.
+The test implementation can be found in the /Solution directory. My notes can also be found in notes.txt.
 
 Instructions on how to build the solution can be found below using the Makefile.
+
+Thanks for the opportunity :)
 
 ## Building
 
@@ -17,7 +19,7 @@ If not using the docker image, the packages in the prerequisites section are req
 ```bash
 cd shadow_interview
 docker pull ghcr.io/tomwiills/shadow_interview/shadow_task_docker:0.0.1
-docker run -v $(pwd):/docker/ -it ghcr.io/tomwiills/shadow_interview/shadow_task_docker:0.0.1
+docker run -v $(pwd):/docker/ -it -u $(id -u):$(id -g) ghcr.io/tomwiills/shadow_interview/shadow_task_docker:0.0.1
 ```
 
 ### make commands
